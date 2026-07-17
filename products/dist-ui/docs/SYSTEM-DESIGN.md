@@ -51,6 +51,11 @@ The current bundle is bound to
 when its summary, provenance, evaluator hash, case count, and hard gates pass
 the import schema in `RESULT-IMPORT.schema.json`.
 
+The product may also display a `user_reported_unverified` result in a separate
+status layer. It must show the reported metrics and methods with a verification
+warning and may not supersede a sealed result until the required hashes and
+evaluator outputs are imported.
+
 ## Production implementation scaffold
 
 1. Export a sanitized signed result bundle from the authoritative run.

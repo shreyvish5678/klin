@@ -24,3 +24,6 @@
 - The sealed Discord run has no winning replacement: hosted scored 4/9,
   untouched Bonsai 1/9, and p42 0/9. The UI must render this as `NOT YET`;
   proposed optimization methods belong in a separately labeled technical view.
+- A newer user report claims Bonsai SFT + LoRA reached 9/9 at 20 s. Until a
+  scored bundle and hashes exist, render it as `user_reported_unverified`
+  without rewriting the prior sealed run.

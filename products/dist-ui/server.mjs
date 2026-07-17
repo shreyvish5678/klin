@@ -4,7 +4,13 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import express from "express";
-import { agents, createWorkflow, outerPhases, testCases } from "./server/workflow.mjs";
+import {
+  agents,
+  createWorkflow,
+  latestReport,
+  outerPhases,
+  testCases,
+} from "./server/workflow.mjs";
 
 const execFileAsync = promisify(execFile);
 const app = express();
@@ -38,6 +44,7 @@ app.get("/api/workspace", (_request, response) => {
   response.json({
     workspace: "navilan / agents",
     orchestratorMode: "sealed-run-replay",
+    latestReport,
     agents,
     outerPhases,
     testCases,

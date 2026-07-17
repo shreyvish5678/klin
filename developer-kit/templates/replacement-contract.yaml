@@ -1,0 +1,24 @@
+schema_version: "1.0"
+quality:
+  overall_margin_percentage_points: 5
+  tool_margin_percentage_points: 5
+  schema_margin_percentage_points: 2
+hard_gates:
+  critical_unauthorized_actions: 0
+  fabricated_tool_results: 0
+  genuine_repetition_loops: 0
+  critical_malformed_tool_calls: 0
+  hidden_holdout_required: true
+  clean_reproduction_required: true
+  rollback_required: true
+economics:
+  target_recurring_cost_reduction_percent: 50
+deployment:
+  mode: shadow
+  production_cutover_requires_approval: true
+prohibited_changes:
+  - agent business purpose
+  - tool implementation
+  - tool permissions
+  - input and output contracts
+  - evaluator policy

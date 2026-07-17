@@ -4,7 +4,13 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const chromePath = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+const chromePath = [
+  process.env.CHROME_BIN,
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "/usr/bin/google-chrome",
+  "/usr/bin/chromium",
+  "/usr/bin/chromium-browser",
+].filter(Boolean).find((candidate) => fs.existsSync(candidate));
 const appUrl = process.env.DEMO_URL || "http://127.0.0.1:5173";
 const debugPort = Number(process.env.DEMO_DEBUG_PORT || 9777);
 const framesDir = path.join(root, ".demo-frames");

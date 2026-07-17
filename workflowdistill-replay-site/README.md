@@ -1,5 +1,8 @@
 # WorkflowDistill Validation Replay
 
+> This is the earlier presentation prototype. The maintained product is
+> [`../products/dist-ui`](../products/dist-ui).
+
 An interactive, accelerated replay of the completed Discord-to-Bonsai matched
 validation run. The default Story tab is judge-friendly; the separate Research
 Console contains the 10x event stream, execution DAG, benchmark matrix, method
@@ -10,6 +13,10 @@ result: the hosted control passed 4/9 selection cases, untouched Bonsai passed
 1/9, and the p42 adapter passed 0/9. A separate, prominently labeled target
 view describes the next model-boundary experiment without presenting it as a
 measured result.
+
+The maintained product also displays the newer user report—Bonsai SFT + LoRA,
+9/9, 20 s p95, reported selected winner—with `verification pending`
+classification until its result bundle and hashes are available.
 
 ## Run locally
 

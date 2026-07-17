@@ -1,3 +1,15 @@
+export const latestReport = {
+  classification: "user_reported_unverified",
+  model: "Bonsai 27B Q1 + supervised fine-tuning + LoRA",
+  shortModel: "Bonsai SFT + LoRA",
+  passed: 9,
+  total: 9,
+  p95LatencySeconds: 20,
+  selection: "reported winner",
+  verification: "result bundle, evaluator output, and artifact hashes required",
+  reportedAt: "2026-07-17",
+};
+
 export const agents = [
   {
     id: "discord-agent",
@@ -7,8 +19,8 @@ export const agents = [
     path: "~/projects/navilan/agents/discord-agent",
     entrypoint: "tools/discord-agent-mcp",
     model: "GPT-5.6-sol",
-    target: "Bonsai 27B Q1",
-    health: "VALIDATED / NOT REPLACED",
+    target: "Bonsai SFT + LoRA",
+    health: "REPORTED 9/9 / VERIFYING",
     tools: 6,
     triggers: 1,
   },

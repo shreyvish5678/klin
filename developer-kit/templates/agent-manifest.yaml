@@ -1,0 +1,20 @@
+schema_version: "1.0"
+agent:
+  id: replace-me
+  name: Replace me
+  repository: /absolute/path
+  revision: git-sha
+  entrypoint: command
+  trigger: event
+  current_model: provider/model
+  model_request_contract: path-or-schema
+  model_response_contract: path-or-schema
+  prompts: []
+  context_sources: []
+  tools: []
+  permissions: []
+  deterministic_responsibilities: []
+  model_responsibilities: []
+  output_consumers: []
+  tests: []
+  rollback_command: command
