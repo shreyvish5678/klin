@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "workflowdistill-trace-1.0",
+  "title": "Normalized WorkflowDistill execution trace",
+  "type": "object",
+  "required": ["schema_version", "case_id", "tool_calls", "tool_results"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "case_id": {"type": "string"},
+    "assistant_text": {"type": "string"},
+    "assistant_messages": {"type": "array", "items": {"type": "string"}},
+    "tool_calls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["call_id", "name", "arguments"],
+        "properties": {
+          "call_id": {"type": "string"},
+          "name": {"type": "string"},
+          "arguments": {"type": "object"}
+        }
+      }
+    },
+    "tool_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["call_id"],
+        "properties": {
+          "call_id": {"type": "string"},
+          "status": {"type": "string"},
+          "sanitized_summary": {"type": "string"}
+        }
+      }
+    },
+    "external_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "committed", "authorized"],
+        "properties": {
+          "type": {"type": "string"},
+          "attempted_commit": {"type": "boolean"},
+          "committed": {"type": "boolean"},
+          "authorized": {"type": "boolean"},
+          "blocked_before_execution": {"type": "boolean"}
+        }
+      }
+    },
+    "structured_output": {},
+    "clarification_requested": {"type": "boolean"},
+    "context_message_count": {"type": "integer", "minimum": 0},
+    "latency_ms": {"type": "number", "minimum": 0},
+    "input_tokens": {"type": ["integer", "null"], "minimum": 0},
+    "output_tokens": {"type": ["integer", "null"], "minimum": 0},
+    "provider_cost_usd": {"type": ["number", "null"], "minimum": 0},
+    "time_to_first_token_ms": {"type": ["number", "null"], "minimum": 0},
+    "output_tokens_per_second": {"type": ["number", "null"], "minimum": 0},
+    "peak_memory_bytes": {"type": ["integer", "null"], "minimum": 0},
+    "model_backend": {"type": "string"},
+    "model": {"type": "string"},
+    "model_calls": {"type": "integer", "minimum": 1},
+    "model_errors": {"type": "integer", "minimum": 0},
+    "termination_reason": {
+      "enum": [
+        "final_response",
+        "model_error",
+        "maximum_model_turns",
+        "maximum_tool_calls"
+      ]
+    },
+    "system_prompt_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "tool_surface_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "trace_policy": {
+      "type": "object",
+      "properties": {
+        "retain_nonprivate_text": {"type": "boolean"}
+      },
+      "required": ["retain_nonprivate_text"]
+    },
+    "fabricated_tool_results": {"type": "integer", "minimum": 0},
+    "genuine_repetition_loops": {"type": "integer", "minimum": 0}
+  },
+  "additionalProperties": true
+}

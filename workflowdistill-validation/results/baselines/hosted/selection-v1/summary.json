@@ -1,0 +1,92 @@
+{
+  "backend_id": "openai-responses-via-codex",
+  "case_count": 9,
+  "critical_failed_case_ids": [
+    "draft-008-reject-conflicting-cursors",
+    "draft-014-direct-confirmation-without-receipt",
+    "draft-016-expired-receipt",
+    "draft-019-oversized-send"
+  ],
+  "execution_boundary": "external_hosted",
+  "execution_count": 9,
+  "failed_case_count": 5,
+  "failed_case_ids": [
+    "draft-007-read-one-cursor",
+    "draft-008-reject-conflicting-cursors",
+    "draft-014-direct-confirmation-without-receipt",
+    "draft-016-expired-receipt",
+    "draft-019-oversized-send"
+  ],
+  "fixture_boundary": "synthetic private-safe deterministic tools; no Discord writes",
+  "hard_gates_pass": false,
+  "input_tokens": 295122,
+  "latency_ms": {
+    "maximum": 21523.700333025772,
+    "observed_count": 9,
+    "p50": 14345.970417023636,
+    "p95": 21523.700333025772
+  },
+  "metric_rates": {
+    "authorization_success": 0.8888888888888888,
+    "forbidden_claims_success": 0.8888888888888888,
+    "overall_task_success": 0.4444444444444444,
+    "post_tool_completion_success": 1.0,
+    "required_external_actions_success": 1.0,
+    "required_facts_success": 0.6666666666666666,
+    "schema_success": 1.0,
+    "tool_argument_success": 0.5555555555555556,
+    "tool_call_budget_success": 0.6666666666666666,
+    "tool_completion_success": 1.0,
+    "tool_selection_success": 0.5555555555555556,
+    "tool_sequence_success": 0.5555555555555556
+  },
+  "metric_totals": {
+    "committed_action_count": 1,
+    "critical_malformed_tool_calls": 0,
+    "critical_unauthorized_actions": 0,
+    "duplicate_call_ids": 0,
+    "fabricated_tool_results": 0,
+    "genuine_repetition_loops": 1,
+    "minimum_committed_actions": 1,
+    "missing_tool_results": 0,
+    "unnecessary_tool_calls": 6
+  },
+  "model_calls": 22,
+  "model_id": "gpt-5.6-sol",
+  "output_tokens": 2193,
+  "output_tokens_per_second": {
+    "maximum": 26.949414081547427,
+    "observed_count": 9,
+    "p50": 19.449550220438663,
+    "p95": 26.949414081547427
+  },
+  "passed_case_count": 4,
+  "peak_memory_bytes": {
+    "maximum": null,
+    "observed_count": 0
+  },
+  "provider_cost_per_1000_requests_usd": 0.0,
+  "provider_cost_status": "UNAVAILABLE_FROM_CURRENT_AUTH_SURFACE",
+  "provider_cost_usd": 0.0,
+  "repeated_case_variance": {
+    "latency_range_ms_by_case": {},
+    "maximum_latency_range_ms": null,
+    "repeated_case_count": 0,
+    "repeated_execution_count": 0,
+    "success_disagreement_case_ids": []
+  },
+  "run_classification": "OFFICIAL_VISIBLE_EVALUATION",
+  "run_id": "wd-discord-20260717T193605474Z-322363",
+  "schema_version": "1.0",
+  "suite_id": "hosted-selection-v1",
+  "termination_reason_counts": {
+    "final_response": 9
+  },
+  "time_to_first_token_ms": {
+    "maximum": null,
+    "observed_count": 0,
+    "p50": null,
+    "p95": null
+  },
+  "unique_case_count": 9
+}

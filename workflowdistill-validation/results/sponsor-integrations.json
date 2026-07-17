@@ -1,0 +1,74 @@
+{
+  "actual_total_cost_usd": 0.02,
+  "akash": {
+    "actual_cost_usd": 0,
+    "cli_installed": false,
+    "config_present": false,
+    "deployments": 0,
+    "maximum_spend_usd": 10,
+    "note": "No Akash CLI, local wallet/config, container runtime, or deployment evidence was available before the timed stop.",
+    "status": "NOT_COMPLETED",
+    "wallet_authority": "USER_ATTESTED_AVAILABLE"
+  },
+  "approval_recorded_at": "2026-07-17T21:34:57.552Z",
+  "approved_total_caps_usd": {
+    "akash": 10,
+    "hosted_control": 10,
+    "zero": 2
+  },
+  "generated_at": "2026-07-17T22:33:33.890Z",
+  "human_actions_not_yet_requested": [
+    "provide additional OIDC administration only if local Pomerium identities are insufficient"
+  ],
+  "incidents": [
+    {
+      "auth_or_capability_call": false,
+      "decision": "Treat Zero CLI startup as stateful; make no further call until a genuine capability request and approval path are recorded.",
+      "id": "SPONSOR-BOOTSTRAP-001",
+      "observed_files": [
+        "$HOME/.zero/config.json",
+        "$HOME/.zero/update_check.json"
+      ],
+      "secret_values_read": false,
+      "spend": 0,
+      "summary": "Zero help/version probe unexpectedly touched installed runtime state"
+    }
+  ],
+  "pomerium": {
+    "actual_cost_usd": 0,
+    "allow_requests": 1,
+    "cli_installed": true,
+    "config_present": true,
+    "deny_requests": 1,
+    "evidence": "evidence/sponsors/pomerium-boundary.json",
+    "note": "Pomerium 0.33.0 plus embedded Envoy allowed a candidate sandbox draft and denied hidden-label access with ext_authz_denied.",
+    "status": "PASS_ALLOW_AND_SAFE_DENIAL"
+  },
+  "run_id": "wd-discord-20260717T193605474Z-322363",
+  "schema_version": "1.0",
+  "status": "PARTIAL",
+  "zero": {
+    "actual_cost_usd": 0.02,
+    "capability_calls": 1,
+    "cli_path": "/opt/homebrew/bin/zero",
+    "cli_version": "1.26.0",
+    "credential_file": {
+      "mode": "0600",
+      "path": "$HOME/.zero/config.json",
+      "present_scalar_paths": [
+        "session.accessToken",
+        "session.refreshToken",
+        "session.authMethod",
+        "session.userId"
+      ],
+      "valid_json": true,
+      "values_recorded": false
+    },
+    "decision_impact": "Do not invent or import a stale token rate. Keep hosted per-token cost unavailable, retain exact usage counts, and reduce the official hosted suite to a compact stratified set under the USD 10 cap.",
+    "evidence": "evidence/sponsors/zero-pricing-capability.json",
+    "maximum_spend_usd": 2,
+    "note": "Auth validity and funding not tested; wait for selected branch, uncertainty, and approved spend.",
+    "sanitized_public_review_approved": true,
+    "status": "COMPLETED_LIMITED_RESULT"
+  }
+}

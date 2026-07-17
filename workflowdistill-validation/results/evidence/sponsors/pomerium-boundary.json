@@ -1,0 +1,77 @@
+{
+  "actual_cost_usd": 0,
+  "authorized_request": {
+    "capability": "sandbox draft request",
+    "http": {
+      "body_bytes": 36,
+      "body_sha256": "67e2740c27a6278cb30d0380903df68b4ecc4c6ae0b6aec087976d5d38e4e2fb",
+      "latency_ms": 5.354,
+      "path": "/candidate/draft",
+      "status": 200
+    },
+    "pomerium_log": {
+      "access": {
+        "log_flushed_before_shutdown": false,
+        "response_code": null,
+        "response_code_details": null
+      },
+      "authorize": {
+        "allow": true,
+        "allow_reason_count": 2,
+        "deny": false,
+        "deny_reason_count": 0
+      },
+      "path": "/candidate/draft"
+    },
+    "role": "CANDIDATE_ROLE"
+  },
+  "completed_at": "2026-07-17T22:07:50.939Z",
+  "privacy": {
+    "external_identity_data_used": false,
+    "hidden_labels_loaded_or_returned": false,
+    "secret_values_recorded": false
+  },
+  "prohibited_request": {
+    "capability": "hidden label read",
+    "http": {
+      "body_bytes": 1423,
+      "body_sha256": "b855846a84d9359744e1c0998712b2e3e996bf3e88a1b1436c526d9429a3b51f",
+      "latency_ms": 3.77,
+      "path": "/hidden/labels",
+      "status": 403
+    },
+    "pomerium_log": {
+      "access": {
+        "log_flushed_before_shutdown": false,
+        "response_code": null,
+        "response_code_details": null
+      },
+      "authorize": {
+        "allow": false,
+        "allow_reason_count": 0,
+        "deny": true,
+        "deny_reason_count": 2
+      },
+      "path": "/hidden/labels"
+    },
+    "role": "CANDIDATE_ROLE"
+  },
+  "raw_log": {
+    "contains_secret_values": false,
+    "path": "evidence/sponsors/pomerium-runtime.jsonl",
+    "sha256": "a885a6b2b455059bb1f4df33756ed7ac84b885c1823d71c009891599467070b1"
+  },
+  "run_id": "wd-discord-20260717T193605474Z-322363",
+  "runtime": {
+    "binary_sha256": "783dc6dd4bcc37b0573f5ef9ff15ffe7c5fdfaf2d771aed9981af199add1f458",
+    "config_sha256": "51cd0dc27593b6b7c61f4e3abd85efa23b543b3827aa952f49379b1a3d473bb2",
+    "mode": "transient local all-in-one; stopped after gate",
+    "persistent_service_installed": false,
+    "product": "Pomerium",
+    "upstream_compatibility_repair": "replaced crash-prone optional Apple CPU frequency probe; Pomerium and embedded Envoy authorization path unchanged",
+    "version": "0.33.0"
+  },
+  "schema_version": "1.0",
+  "started_at": "2026-07-17T22:07:49.128Z",
+  "status": "PASS"
+}

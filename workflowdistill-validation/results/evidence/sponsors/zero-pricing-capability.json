@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "run_id": "wd-discord-20260717T193605474Z-322363",
+  "status": "COMPLETED_LIMITED_RESULT",
+  "capability_request": {
+    "question": "Current gpt-5.6-sol standard API input, cached-input, and output prices with source",
+    "private_data_in_request": false,
+    "hidden_labels_in_request": false
+  },
+  "capability": {
+    "attribution_token": "z_nTGl3d.1",
+    "name": "MyceliaSignal OpenAI Model Pricing Oracle",
+    "method": "GET",
+    "price_usdc": 0.02
+  },
+  "call": {
+    "run_id": "run_HN-rGuu6h_FzAu9TlI1YO",
+    "ok": true,
+    "http_status": 200,
+    "latency_ms": 3232,
+    "actual_cost_usd": 0.02,
+    "paid_protocol": "x402",
+    "paid_chain": "base"
+  },
+  "result_assessment": {
+    "signed_dataset_returned": true,
+    "requested_model_present": false,
+    "usable_as_current_gpt_5_6_pricing_source": false,
+    "limitation": "Returned catalog ended at GPT-4.1 and o4-mini and omitted gpt-5.6-sol."
+  },
+  "decision_impact": {
+    "changed_research_direction": true,
+    "decision": "Do not invent or import a stale token rate. Keep hosted per-token cost unavailable, retain exact usage counts, and reduce the official hosted suite to a compact stratified set under the USD 10 cap.",
+    "production_inference_dependency": false,
+    "benchmark_cases_solved_by_zero": false
+  },
+  "review": {
+    "submitted": true,
+    "review_id": "rev_ywpSwKGkxUARzf-elNfWO",
+    "sanitized_public_content_approved": true
+  }
+}
