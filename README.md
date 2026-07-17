@@ -40,7 +40,7 @@ cd products/dist-ui
 npm run validate
 ```
 
-The validation gate runs six deterministic and browser-level tests, including
+The validation gate runs seven deterministic and browser-level tests, including
 the 390 px responsive surface, then creates the production Vite build.
 
 ## Demo and documentation
