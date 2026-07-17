@@ -6,7 +6,13 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const chromePath = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+const chromePath = [
+  process.env.CHROME_BIN,
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "/usr/bin/google-chrome",
+  "/usr/bin/chromium",
+  "/usr/bin/chromium-browser",
+].filter(Boolean).find((candidate) => fs.existsSync(candidate));
 const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
 async function waitForJson(url, timeout = 10_000) {
@@ -130,7 +136,15 @@ test(
     assert.equal(await evaluate('document.querySelectorAll(".journey-card").length'), 5);
     assert.equal(
       await evaluate('document.querySelector(".loop-header h3").textContent.trim()'),
-      "How the sealed run reached NOT YET",
+      "Latest report + sealed comparison",
+    );
+    assert.equal(
+      await evaluate('document.querySelector(".latest-report dd").textContent.trim()'),
+      "9/9",
+    );
+    assert.match(
+      await evaluate('document.querySelector(".latest-report-title span").textContent.trim()'),
+      /VERIFICATION PENDING/,
     );
     assert.equal(
       await evaluate('document.querySelector(".latest-activity > span:nth-of-type(2)").textContent.trim()'),

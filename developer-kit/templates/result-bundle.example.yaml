@@ -1,0 +1,23 @@
+schema_version: "1.0"
+run_id: replace-with-run-id
+classification: user_reported_unverified
+case_count: 9
+models:
+  - id: bonsai-27b-q1-sft-lora
+    passed: 9
+    p95_latency_seconds: 20
+    genuine_loops: null
+    hard_gates_pass: null
+hashes:
+  manifest: replace-with-sha256
+  evaluator: replace-with-sha256
+  prompt: replace-with-sha256
+  tools: replace-with-sha256
+  fixtures: replace-with-sha256
+  dataset: replace-with-sha256
+  model: replace-with-sha256
+  adapter: replace-with-sha256
+verification:
+  hidden_evaluation: pending
+  clean_reproduction: pending
+  shadow_integration: pending

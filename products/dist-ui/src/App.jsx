@@ -21,6 +21,17 @@ import {
 const fallbackWorkspace = {
   workspace: "navilan / agents",
   orchestratorMode: "sealed-run-replay",
+  latestReport: {
+    classification: "user_reported_unverified",
+    model: "Bonsai 27B Q1 + supervised fine-tuning + LoRA",
+    shortModel: "Bonsai SFT + LoRA",
+    passed: 9,
+    total: 9,
+    p95LatencySeconds: 20,
+    selection: "reported winner",
+    verification: "result bundle, evaluator output, and artifact hashes required",
+    reportedAt: "2026-07-17",
+  },
   outerPhases: [
     { id: "discover", label: "Discover", short: "DISC" },
     { id: "select", label: "Select", short: "SEL" },
@@ -46,8 +57,8 @@ const fallbackWorkspace = {
       path: "~/projects/navilan/agents/discord-agent",
       entrypoint: "src/index.ts",
       model: "GPT-5.6-sol",
-      target: "Bonsai 27B Q1",
-      health: "VALIDATED / NOT REPLACED",
+      target: "Bonsai SFT + LoRA",
+      health: "REPORTED 9/9 / VERIFYING",
       tools: 6,
       triggers: 1,
     },
@@ -179,6 +190,41 @@ function StatusMark({ status }) {
   }
   if (status === "running") return <span className="status-mark is-running" aria-label="running" />;
   return <span className="status-mark" aria-label="pending" />;
+}
+
+function LatestReport({ report }) {
+  if (!report) return null;
+  return (
+    <section className="latest-report" aria-label="Latest user-reported model result">
+      <div className="latest-report-title">
+        <span>LATEST REPORTED RUN · VERIFICATION PENDING</span>
+        <strong>{report.shortModel}</strong>
+        <p>
+          Reported as the selected candidate after supervised fine-tuning and
+          LoRA. This is not sealed evidence until the result bundle, evaluator
+          output, and artifact hashes verify.
+        </p>
+      </div>
+      <dl>
+        <div>
+          <dt>Reported score</dt>
+          <dd>{report.passed}/{report.total}</dd>
+        </div>
+        <div>
+          <dt>Reported p95</dt>
+          <dd>{report.p95LatencySeconds} s</dd>
+        </div>
+        <div>
+          <dt>Selection</dt>
+          <dd>{report.selection}</dd>
+        </div>
+        <div>
+          <dt>Evidence</dt>
+          <dd>pending import</dd>
+        </div>
+      </dl>
+    </section>
+  );
 }
 
 function OuterPhases({ activeIndex, runStatus }) {
@@ -967,7 +1013,7 @@ function ContractView({ agent }) {
         <section className="technical-card method-card">
           <div className="section-kicker">
             <TestTube2 size={12} />
-            NEXT METHOD QUEUE · NOT RUN
+            PRIOR SEALED RUN QUEUE · NOT RUN
           </div>
           <ol>
             <li><strong>Exit-discipline SFT</strong><span>development traces only</span></li>
@@ -1365,7 +1411,7 @@ export default function App() {
           )}
         </div>
         <div className="topbar-actions">
-          <span className="demo-badge">SEALED EVIDENCE · 10×</span>
+          <span className="demo-badge report-badge">REPORTED · 9/9 · 20 s</span>
           <button className="new-run-button" type="button" onClick={newRun}>
             <Plus size={14} />
             Start over
@@ -1443,6 +1489,7 @@ export default function App() {
           </div>
 
           {error && <div className="error-banner" role="alert">{error}</div>}
+          <LatestReport report={workspace.latestReport} />
 
           <div className={`workspace-content ${activeView === "loop" ? "loop-focus" : ""}`}>
             <section className="primary-view">
@@ -1452,7 +1499,7 @@ export default function App() {
                     <div className="loop-header">
                       <div>
                         <span className="eyebrow">MODEL COMPARISON</span>
-                        <h3>How the sealed run reached NOT YET</h3>
+                        <h3>Latest report + sealed comparison</h3>
                       </div>
                     </div>
                     <OuterPhases

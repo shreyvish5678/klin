@@ -1,6 +1,16 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createWorkflow } from "../server/workflow.mjs";
+import { createWorkflow, latestReport } from "../server/workflow.mjs";
+
+test("latest reported result remains explicitly unverified", () => {
+  assert.equal(latestReport.classification, "user_reported_unverified");
+  assert.deepEqual(
+    [latestReport.passed, latestReport.total, latestReport.p95LatencySeconds],
+    [9, 9, 20],
+  );
+  assert.match(latestReport.model, /supervised fine-tuning \+ LoRA/i);
+  assert.match(latestReport.verification, /hashes required/i);
+});
 
 test("workflow emits a complete ordered event contract", () => {
   const events = createWorkflow({

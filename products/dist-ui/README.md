@@ -6,6 +6,19 @@ agent around it. This build replays a sanitized, sealed Discord-to-Bonsai
 validation at 10× through the existing React interface and an Express/SSE
 orchestrator.
 
+## Latest reported result
+
+The UI now carries the user's newer report:
+
+| Candidate | Method | Reported score | Reported p95 | Classification |
+| --- | --- | ---: | ---: | --- |
+| Bonsai 27B Q1 | Supervised fine-tuning + LoRA | 9/9 | 20 s | User-reported, verification pending |
+
+This report is prominent in the product but is not relabeled as sealed
+evidence. Promotion to measured status requires the result bundle, evaluator
+output, artifact hashes, and clean-reproduction record defined by
+`docs/RESULT-IMPORT.schema.json`.
+
 [Watch the 12-second product demo](public/work-distill-demo.mp4)
 
 ![Completed Work Distill replay](public/demo-results.png)
@@ -38,7 +51,7 @@ Open [http://127.0.0.1:5173](http://127.0.0.1:5173), then choose
 - Supports keyboard operation and a tested 390 px narrow viewport.
 - Generates screenshots and a YouTube-ready H.264 demo from the real UI.
 
-## Sealed result
+## Prior sealed result
 
 | Model path | Passed | p95 latency | Genuine loops |
 | --- | ---: | ---: | ---: |
@@ -46,10 +59,10 @@ Open [http://127.0.0.1:5173](http://127.0.0.1:5173), then choose
 | Untouched Bonsai 27B Q1 | 1/9 | 63.8 s | 3 |
 | Bonsai + p42 LoRA | 0/9 | 144.7 s | 31 |
 
-The replacement verdict is **NOT YET** and production Discord writes remain
-zero. Proposed SFT, DPO, LoRA rank-sweep, and grammar-decoding methods are
-explicitly labeled `NOT RUN`; the UI does not turn them into retroactive
-claims.
+The prior sealed replacement verdict is **NOT YET** and production Discord
+writes remain zero. In that historical run, proposed SFT, DPO, LoRA
+rank-sweep, and grammar-decoding methods were `NOT RUN`. The newer 9/9 report
+is displayed separately until its artifacts verify.
 
 ![Technical evidence and next-method queue](public/demo-technical.png)
 

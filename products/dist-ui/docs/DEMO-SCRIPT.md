@@ -5,6 +5,12 @@
 “Work Distill answers one question: can a cheaper local model replace a real
 agent without changing the agent around it?”
 
+Point to the latest-result strip:
+
+“The newest report says a supervised-fine-tuned LoRA candidate reached 9/9 at
+20 seconds. Work Distill preserves that update immediately while marking the
+artifact verification that is still required.”
+
 ## Overview
 
 1. Select `discord-agent`.
