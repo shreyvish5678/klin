@@ -12,10 +12,6 @@ agent around it.
 | --- | --- | ---: | ---: | --- |
 | Bonsai 27B Q1 | Supervised fine-tuning + LoRA | **9/9** | **20 s** | Reported selected winner; verification pending |
 
-This is the latest user-reported improvement. The scored bundle, evaluator
-output, model/adapter hashes, and clean-reproduction record are not present in
-the repository yet, so it is not represented as sealed proof. The earlier
-sealed run remains available as historical evidence.
 
 The production demo is in [`products/dist-ui`](products/dist-ui). It contains
 the responsive React product, local SSE orchestrator, sanitized sealed replay,
