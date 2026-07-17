@@ -1,43 +1,94 @@
 # Work Distill UI
 
-Work Distill is the local product surface for the completed Discord-to-Bonsai
-validation. It replays the sealed run at 10x through the product's existing
-React/Vite interface and local Express event orchestrator.
+Work Distill is a local evidence surface for deciding whether an agent's
+hosted model can be replaced by a cheaper, private model without changing the
+agent around it. This build replays a sanitized, sealed Discord-to-Bonsai
+validation at 10× through the existing React interface and an Express/SSE
+orchestrator.
 
-The default Overview stays plain-language. The separate Technical tab exposes
-the immutable execution DAG, actual selection results, acceptance gates,
-proposed next-method queue, and model-neutral harness pseudocode. Proposed
-methods are explicitly labeled as not run.
+[Watch the 12-second product demo](public/work-distill-demo.mp4)
+
+![Completed Work Distill replay](public/demo-results.png)
+
+The Overview explains the decision in plain language. The Technical tab
+exposes the immutable execution DAG, exact aggregates, acceptance gates,
+representative test cases, proposed next-method queue, and model-neutral
+harness pseudocode.
 
 ## Run locally
+
+Requires Node.js 20 or newer.
 
 ```sh
 npm install
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173`.
+Open [http://127.0.0.1:5173](http://127.0.0.1:5173), then choose
+**Replay at 10×**. No cloud deployment or Discord write is required.
 
-Choose **Replay at 10×** to stream the 22-event sealed evidence cut.
+## What is functional
 
-## Measured result
+- Creates an isolated replay run through `POST /api/runs`.
+- Streams 22 ordered, sanitized events over server-sent events.
+- Reconstructs three matched model paths in the same frozen agent workflow.
+- Shows five visible Discord test cases and their per-model outcomes.
+- Separates measured evidence from inference and unrun methods.
+- Preserves rollback when quality, safety, or reproduction gates miss.
+- Supports keyboard operation and a tested 390 px narrow viewport.
+- Generates screenshots and a YouTube-ready H.264 demo from the real UI.
 
-- GPT-5.6-sol: 4/9, one genuine repetition loop
-- Untouched Bonsai 27B Q1: 1/9, three loops
-- Bonsai plus p42 LoRA: 0/9, 31 loops
-- Replacement verdict: **NOT YET**
-- Discord production writes: zero
+## Sealed result
 
-The interface never presents the proposed SFT, DPO, rank-sweep, or grammar
-methods as completed experiments.
+| Model path | Passed | p95 latency | Genuine loops |
+| --- | ---: | ---: | ---: |
+| GPT-5.6-sol hosted control | 4/9 | 21.5 s | 1 |
+| Untouched Bonsai 27B Q1 | 1/9 | 63.8 s | 3 |
+| Bonsai + p42 LoRA | 0/9 | 144.7 s | 31 |
 
-## Validate
+The replacement verdict is **NOT YET** and production Discord writes remain
+zero. Proposed SFT, DPO, LoRA rank-sweep, and grammar-decoding methods are
+explicitly labeled `NOT RUN`; the UI does not turn them into retroactive
+claims.
+
+![Technical evidence and next-method queue](public/demo-technical.png)
+
+## Validate and capture
 
 ```sh
-npm test
-npm run build
+npm run validate
+npm run capture:demo
 ```
 
-The browser test verifies the 390 px mobile surface, 10x streamed branch
-states, sealed verdict, technical disclosure, keyboard controls, and stopping
-behavior.
+`npm run validate` runs the deterministic event tests, real Chrome interaction
+test, narrow-layout checks, and production build. `capture:demo` expects the
+local server at `127.0.0.1:5173` and writes:
+
+- `public/demo-overview.png`
+- `public/demo-results.png`
+- `public/demo-technical.png`
+- `public/work-distill-demo.mp4`
+
+## Architecture and handoff
+
+- [System design](docs/SYSTEM-DESIGN.md)
+- [Implementation prompt](docs/IMPLEMENTATION-PROMPT.md)
+- [Result import schema](docs/RESULT-IMPORT.schema.json)
+- [60-second presenter script](docs/DEMO-SCRIPT.md)
+- [Session handoff](SESSION-HANDOFF.md)
+
+The source run remains immutable. A future result is rendered as measured only
+after its sanitized bundle, case count, hard gates, and provenance hashes pass
+the import contract.
+
+## Project map
+
+```text
+src/                    React product surface
+server.mjs              local HTTP and SSE orchestrator
+server/workflow.mjs     sanitized replay contract and aggregates
+tests/                  deterministic and real-browser checks
+scripts/capture-demo.mjs repeatable product capture
+docs/                   architecture, prompt, schema, and demo script
+public/                 generated product media
+```

@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "node server.mjs",
     "build": "vite build",
+    "capture:demo": "node scripts/capture-demo.mjs",
     "preview": "NODE_ENV=production node server.mjs",
-    "test": "node --test"
+    "test": "node --test",
+    "validate": "npm test && npm run build"
   },
   "dependencies": {
     "express": "^5.1.0",
