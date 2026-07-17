@@ -1,0 +1,16 @@
+schema_version: "1.0"
+workspace: work-distill-ui
+capabilities:
+  - id: render_control_surface
+    description: Render the agent inventory, adaptive loop, gates, and output.
+  - id: stream_workflow_events
+    description: Create a local run and stream structured events over SSE.
+  - id: check_codex_runtime
+    description: Report whether the local Codex CLI executable is available.
+boundaries:
+  - no autonomous repository mutation
+  - no credential handling
+  - no production model cutover
+verification:
+  test: npm test
+  build: npm run build
