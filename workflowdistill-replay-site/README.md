@@ -1,7 +1,9 @@
 # WorkflowDistill Validation Replay
 
 An interactive, accelerated replay of the completed Discord-to-Bonsai matched
-validation run.
+validation run. The default Story tab is judge-friendly; the separate Research
+Console contains the 10x event stream, execution DAG, benchmark matrix, method
+queue, and model-neutral harness pseudocode.
 
 The site defaults to measured evidence and deliberately preserves the negative
 result: the hosted control passed 4/9 selection cases, untouched Bonsai passed

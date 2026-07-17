@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function render() {
@@ -32,9 +33,11 @@ test("server-renders the validation replay", async () => {
     html,
     /<title>WorkflowDistill — Discord → Bonsai Validation Replay<\/title>/i,
   );
-  assert.match(html, /Research event stream/);
-  assert.match(html, /Measured evidence/);
-  assert.match(html, /Next-candidate target/);
+  assert.match(html, /THE 18-SECOND REPLACEMENT STORY/);
+  assert.match(html, /Can a local model/);
+  assert.match(html, /Open the 10× research console/);
+  assert.match(html, /Story/);
+  assert.match(html, /Research console/);
   assert.match(html, /Bonsai did not beat the hosted control/);
   assert.match(html, /121 EVENTS SEALED/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
@@ -43,13 +46,18 @@ test("server-renders the validation replay", async () => {
 test("keeps measured and target claims visibly distinct", async () => {
   const response = await render();
   const html = await response.text();
+  const source = await readFile(
+    new URL("../app/page.tsx", import.meta.url),
+    "utf8",
+  );
 
-  assert.match(html, /GPT-5\.6-sol/);
-  assert.match(html, /Bonsai 27B Q1/);
-  assert.match(html, /Bonsai \+ p42/);
-  assert.match(html, /Best measured/);
-  assert.match(html, /Did not qualify/);
-  assert.match(html, /Rejected/);
-  assert.match(html, /Derived from measured failure signatures; not yet evaluated/);
+  assert.match(html, /Hosted won this round/);
+  assert.match(html, /Bonsai exposed the next move/);
+  assert.match(source, /GPT-5\.6-sol/);
+  assert.match(source, /Bonsai 27B Q1/);
+  assert.match(source, /Bonsai \+ p42/);
+  assert.match(source, /PROPOSED \/ NOT RUN/);
+  assert.match(source, /ILLUSTRATIVE TARGET · NOT MEASURED/);
+  assert.match(source, /Derived from measured failure signatures; not yet evaluated/);
   assert.match(html, /production stayed untouched/);
 });

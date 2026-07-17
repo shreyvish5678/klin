@@ -349,6 +349,7 @@ function Mark({ pass }: { pass: boolean }) {
 }
 
 export default function Home() {
+  const [surface, setSurface] = useState<"overview" | "technical">("overview");
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [speed, setSpeed] = useState(10);
@@ -363,6 +364,7 @@ export default function Home() {
   const activeCase = cases[selectedCase];
 
   useEffect(() => {
+    if (surface !== "technical") return;
     if (!playing) return;
     if (index >= replayEvents.length - 1) {
       setPlaying(false);
@@ -373,7 +375,7 @@ export default function Home() {
       setIndex((current) => Math.min(current + 1, replayEvents.length - 1));
     }, stepMs);
     return () => window.clearTimeout(timer);
-  }, [index, playing, speed]);
+  }, [index, playing, speed, surface]);
 
   useEffect(() => {
     logRef.current?.scrollTo({
@@ -398,6 +400,12 @@ export default function Home() {
     setPlaying((value) => !value);
   }
 
+  function openTechnical() {
+    setSurface("technical");
+    setIndex(0);
+    setPlaying(true);
+  }
+
   return (
     <main>
       <div className="ambient ambient-one" />
@@ -411,6 +419,24 @@ export default function Home() {
             <small>replacement laboratory</small>
           </span>
         </a>
+        <div className="product-tabs" role="tablist" aria-label="Product views">
+          <button
+            role="tab"
+            aria-selected={surface === "overview"}
+            className={surface === "overview" ? "active" : ""}
+            onClick={() => setSurface("overview")}
+          >
+            <span>01</span> Story
+          </button>
+          <button
+            role="tab"
+            aria-selected={surface === "technical"}
+            className={surface === "technical" ? "active" : ""}
+            onClick={openTechnical}
+          >
+            <span>02</span> Research console
+          </button>
+        </div>
         <div className="nav-status">
           <span className="pulse-dot" />
           <span>RUN 322363</span>
@@ -423,17 +449,29 @@ export default function Home() {
         <div className="hero-copy">
           <div className="kicker">
             <span className="kicker-line" />
-            DISCORD → BONSAI / MATCHED VALIDATION
+            {surface === "overview"
+              ? "THE 18-SECOND REPLACEMENT STORY"
+              : "DISCORD → BONSAI / MATCHED VALIDATION"}
           </div>
           <h1>
-            See the whole agent
-            <br />
-            replacement run <em>unfold.</em>
+            {surface === "overview" ? (
+              <>
+                Can a local model
+                <br />
+                replace this <em>agent?</em>
+              </>
+            ) : (
+              <>
+                See the whole agent
+                <br />
+                replacement run <em>unfold.</em>
+              </>
+            )}
           </h1>
           <p>
-            A genuine-event replay of one Discord workflow, two local Bonsai
-            paths, and the safety gates between a promising model and a real
-            replacement.
+            {surface === "overview"
+              ? "We took one working Discord workflow, held every tool and safety rule still, then swapped only the intelligence. The result is more useful than a victory lap."
+              : "A genuine-event replay of one Discord workflow, two local Bonsai paths, and the safety gates between a promising model and a real replacement."}
           </p>
         </div>
         <div className="hero-verdict">
@@ -447,6 +485,80 @@ export default function Home() {
         </div>
       </section>
 
+      {surface === "overview" ? (
+        <section className="easy-overview" aria-label="WorkflowDistill story">
+          <div className="story-rail">
+            <article>
+              <span>01</span>
+              <small>FIND</small>
+              <h2>One real workflow</h2>
+              <p>Six Discord tools, one test DM, and explicit permission before any send.</p>
+            </article>
+            <i>→</i>
+            <article>
+              <span>02</span>
+              <small>FREEZE</small>
+              <h2>One fair contract</h2>
+              <p>Same prompts, tools, fixtures, evaluator, and nine visible selection cases.</p>
+            </article>
+            <i>→</i>
+            <article>
+              <span>03</span>
+              <small>SWAP</small>
+              <h2>Three model paths</h2>
+              <p>Hosted control, untouched local Bonsai, then one existing LoRA candidate.</p>
+            </article>
+            <i>→</i>
+            <article>
+              <span>04</span>
+              <small>DECIDE</small>
+              <h2>No fake win</h2>
+              <p>The local path was not ready, so production stayed untouched and rollback stayed clean.</p>
+            </article>
+          </div>
+
+          <div className="simple-scoreboard">
+            <div className="simple-copy">
+              <span className="section-eyebrow">THE BOTTOM LINE</span>
+              <h2>Hosted won this round.<br />Bonsai exposed the next move.</h2>
+              <p>
+                The interesting discovery was not “local is bad.” It was that
+                failure clustered around exit discipline: clarify, stop, and
+                finalize after enough evidence exists.
+              </p>
+              <button onClick={openTechnical}>
+                Open the 10× research console <span>→</span>
+              </button>
+            </div>
+            <div className="simple-scores">
+              <div>
+                <small>HOSTED</small>
+                <strong>4<em>/9</em></strong>
+                <span>best measured</span>
+              </div>
+              <div>
+                <small>BONSAI</small>
+                <strong>1<em>/9</em></strong>
+                <span>local baseline</span>
+              </div>
+              <div>
+                <small>MESSAGES</small>
+                <strong>0</strong>
+                <span>production writes</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="easy-proof">
+            <span>WHY THIS IS TRUSTWORTHY</span>
+            <div><strong>121</strong><small>sealed events</small></div>
+            <div><strong>30</strong><small>frozen cases</small></div>
+            <div><strong>3</strong><small>matched paths</small></div>
+            <div><strong>$0.02</strong><small>external spend</small></div>
+          </div>
+        </section>
+      ) : (
+        <>
       <section className="mode-switch" aria-label="Display mode">
         <div>
           <span className="mode-label">VIEW</span>
@@ -785,6 +897,91 @@ export default function Home() {
           </article>
         </div>
       </section>
+
+      <section className="section tech-depth">
+        <header className="section-header">
+          <div>
+            <span className="section-index">05</span>
+            <div>
+              <span className="section-eyebrow">SYSTEM DEPTH</span>
+              <h2>DAG, method queue, and harness boundary</h2>
+            </div>
+          </div>
+          <p>Technical context for judges. Proposed methods are not measured results.</p>
+        </header>
+
+        <div className="tech-grid">
+          <article className="dag-panel">
+            <div className="tech-panel-head">
+              <span>EXECUTION DAG</span>
+              <i>IMMUTABLE OUTSIDE MODEL</i>
+            </div>
+            <div className="dag">
+              <div className="dag-node source">
+                <small>INPUT</small><strong>prompt</strong>
+              </div>
+              <b>→</b>
+              <div className="dag-node model-node">
+                <small>SWAPPABLE</small><strong>model</strong>
+              </div>
+              <b>→</b>
+              <div className="dag-node">
+                <small>POLICY</small><strong>tool gate</strong>
+              </div>
+              <b>→</b>
+              <div className="dag-node">
+                <small>FACADE</small><strong>Discord</strong>
+              </div>
+              <b>→</b>
+              <div className="dag-node sink">
+                <small>SCORE</small><strong>evaluator</strong>
+              </div>
+            </div>
+            <div className="dag-branches">
+              <span>authorization</span>
+              <span>receipt match</span>
+              <span>schema</span>
+              <span>loop detector</span>
+              <span>trace redaction</span>
+            </div>
+          </article>
+
+          <article className="method-panel">
+            <div className="tech-panel-head">
+              <span>METHOD QUEUE</span>
+              <i>PROPOSED / NOT RUN</i>
+            </div>
+            <div className="method-list">
+              <div><span>01</span><strong>Exit-discipline SFT</strong><small>preferred next</small></div>
+              <div><span>02</span><strong>Contrastive DPO</strong><small>loop vs. stop pairs</small></div>
+              <div><span>03</span><strong>LoRA rank sweep</strong><small>development only</small></div>
+              <div><span>04</span><strong>Grammar decode</strong><small>compatibility study</small></div>
+            </div>
+          </article>
+
+          <article className="code-panel">
+            <div className="tech-panel-head">
+              <span>SHARED HARNESS / PSEUDOCODE</span>
+              <i>MODEL-NEUTRAL</i>
+            </div>
+            <pre><code>{`for turn in range(MAX_TURNS):
+    response = model(bound_request)
+    calls = validate(response.tool_calls)
+
+    if repeats(calls) or exceeds_budget(calls):
+        score.hard_gate("loop")
+        break
+
+    results = tool_facade.execute(calls)
+    trace.append(redact(results))
+
+assert same_hash(prompt, tools, fixtures, evaluator)
+publish_atomic(score, provenance)`}</code></pre>
+          </article>
+        </div>
+      </section>
+        </>
+      )}
 
       <section className="boundary-strip">
         <div>
