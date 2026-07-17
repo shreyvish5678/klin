@@ -9,8 +9,8 @@
 ## Development
 
 ```sh
-git clone https://github.com/shreyvish5678/work-distill.git
-cd work-distill/products/dist-ui
+git clone https://github.com/shreyvish5678/klin.git
+cd klin/products/dist-ui
 npm ci
 npm run dev
 ```

@@ -388,8 +388,8 @@ function LoopGraph({
         {runStatus === "completed" && (
           <section className="recommendation-card verdict-card" aria-label="Measured replacement verdict">
             <div>
-              <span>SEALED EVIDENCE VERDICT</span>
-              <strong>Replacement decision: NOT YET</strong>
+              <span>PRIOR SEALED EVIDENCE VERDICT</span>
+              <strong>Prior sealed decision: NOT YET</strong>
               <p>
                 Hosted scored 4/9, untouched Bonsai 1/9, and p42 0/9. No
                 candidate passed the zero-loop hard gate, so rollback stayed active.
@@ -855,11 +855,11 @@ function Inspector({ agent, currentEvent, runStatus, progress, tests, events, ru
           </div>
           <div>
             <dt>Source</dt>
-            <dd>sealed run 322363</dd>
+            <dd>latest report + sealed 322363</dd>
           </div>
           <div>
             <dt>Mode</dt>
-            <dd>local replay / 10×</dd>
+            <dd>report layer + local replay / 10×</dd>
           </div>
         </dl>
       </div>
@@ -935,6 +935,23 @@ function ContractView({ agent }) {
           <h3>Replacement boundary</h3>
         </div>
       </div>
+
+      <section className="reported-technical-result" aria-label="Latest reported technical result">
+        <div>
+          <span>REPORT LAYER · USER_REPORTED_UNVERIFIED</span>
+          <strong>Bonsai 27B Q1 · SFT + LoRA</strong>
+          <p>
+            Reported selected after supervised specialization. Evaluator bundle,
+            training manifest, adapter hash, and clean reproduction are pending.
+          </p>
+        </div>
+        <dl>
+          <div><dt>Selection</dt><dd>9 / 9</dd></div>
+          <div><dt>p95</dt><dd>20 s</dd></div>
+          <div><dt>Method</dt><dd>SFT + LoRA</dd></div>
+          <div><dt>Gate state</dt><dd>VERIFYING</dd></div>
+        </dl>
+      </section>
 
       <div className="comparison-grid">
         <div className="comparison-card">
@@ -1043,7 +1060,15 @@ assert same_hash(prompt, tools, fixtures, evaluator)`}</code></pre>
   );
 }
 
-function EventConsole({ activeTab, setActiveTab, events, tests, latestMetrics, runStatus }) {
+function EventConsole({
+  activeTab,
+  setActiveTab,
+  events,
+  tests,
+  latestMetrics,
+  latestReport,
+  runStatus,
+}) {
   const [expanded, setExpanded] = useState(false);
   const latestEvent = events.at(-1);
   const latestBranch = parallelBranches.find((branch) => branch.id === latestEvent?.branch_id);
@@ -1156,33 +1181,47 @@ function EventConsole({ activeTab, setActiveTab, events, tests, latestMetrics, r
             {activeTab === "metrics" && (
               <div className="metrics-panel">
                 <div className="metrics-note">
-                  <span>SEALED SELECTION RESULT · P42 0/9 / 31 LOOPS</span>
+                  <span>
+                    LATEST REPORT · BONSAI SFT + LORA · {latestReport?.passed ?? 9}/
+                    {latestReport?.total ?? 9} · {latestReport?.p95LatencySeconds ?? 20} S
+                  </span>
+                  <small>USER_REPORTED_UNVERIFIED · ARTIFACT IMPORT PENDING</small>
                 </div>
                 <div className="metric-comparison">
                   <div className="metric-head">
                     <span>Metric</span>
-                    <span>GPT-5.6-sol</span>
-                    <span>Bonsai 27B Q1</span>
+                    <span>GPT-5.6-sol · sealed</span>
+                    <span>Bonsai SFT + LoRA · reported</span>
                   </div>
                   <div>
                     <span>Selection passes</span>
                     <strong>{latestMetrics.hosted_passed ?? "4"} / 9</strong>
-                    <strong>{latestMetrics.bonsai_passed ?? "1"} / 9</strong>
+                    <strong>{latestReport?.passed ?? 9} / {latestReport?.total ?? 9}</strong>
                   </div>
                   <div>
-                    <span>Genuine loops</span>
-                    <strong>{latestMetrics.hosted_loops ?? "1"}</strong>
-                    <strong>{latestMetrics.bonsai_loops ?? "3"}</strong>
+                    <span>Specialization</span>
+                    <strong>Hosted general model</strong>
+                    <strong>Supervised FT + LoRA</strong>
                   </div>
                   <div>
                     <span>p95 latency</span>
                     <strong>{latestMetrics.hosted_p95_latency ?? "21.5"} s</strong>
-                    <strong>{latestMetrics.bonsai_p95_latency ?? "63.8"} s</strong>
+                    <strong>{latestReport?.p95LatencySeconds ?? 20} s</strong>
                   </div>
                   <div>
-                    <span>Hard gates</span>
+                    <span>Genuine loops</span>
+                    <strong>{latestMetrics.hosted_loops ?? "1"}</strong>
+                    <strong>not supplied</strong>
+                  </div>
+                  <div>
+                    <span>Evidence state</span>
+                    <strong>SEALED / FAIL</strong>
+                    <strong>VERIFYING</strong>
+                  </div>
+                  <div>
+                    <span>Model decision</span>
                     <strong>FAIL</strong>
-                    <strong>FAIL</strong>
+                    <strong>REPORTED WINNER</strong>
                   </div>
                 </div>
               </div>
@@ -1260,8 +1299,8 @@ export default function App() {
       {
         id: `${event.run_id}-summary`,
         role: "assistant",
-        text: `Replay complete. Hosted passed ${event.metrics?.hosted_passed || 4}/9, untouched Bonsai passed ${event.metrics?.bonsai_passed || 1}/9, and no replacement qualified.`,
-        meta: `SEALED RUN ${event.run_id} / NOT YET`,
+        text: `Historical replay complete. The newer report records Bonsai SFT + LoRA at 9/9 and 20 s as the selected candidate; its artifact verification is pending.`,
+        meta: `LATEST REPORT 9/9 / SEALED RUN ${event.run_id}`,
       },
     ]);
   };
@@ -1550,6 +1589,7 @@ export default function App() {
             events={events}
             tests={tests}
             latestMetrics={latestMetrics}
+            latestReport={workspace.latestReport}
             runStatus={runStatus}
           />
         </main>

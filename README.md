@@ -1,6 +1,6 @@
 # Work Distill
 
-[![CI](https://github.com/shreyvish5678/work-distill/actions/workflows/ci.yml/badge.svg)](https://github.com/shreyvish5678/work-distill/actions/workflows/ci.yml)
+[![CI](https://github.com/shreyvish5678/klin/actions/workflows/ci.yml/badge.svg)](https://github.com/shreyvish5678/klin/actions/workflows/ci.yml)
 
 Work Distill is an evidence-first interface for deciding whether an agent's
 hosted model can be replaced by a cheaper local model without changing the
@@ -23,6 +23,8 @@ real-browser tests, architecture handoff, screenshots, and a YouTube-ready
 screen recording.
 
 ![Work Distill completed replay](products/dist-ui/public/demo-results.png)
+
+![Latest reported SFT and LoRA metrics](products/dist-ui/public/demo-reported-metrics.png)
 
 ## Start the product
 
