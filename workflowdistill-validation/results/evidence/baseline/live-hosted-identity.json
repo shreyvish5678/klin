@@ -1,0 +1,50 @@
+{
+  "classification": "LIVE_READ_ONLY_HOSTED_END_TO_END",
+  "model": {
+    "api": "Responses API through authenticated Codex client",
+    "input_tokens": 24530,
+    "model_calls": 2,
+    "model_errors": 0,
+    "model_id": "gpt-5.6-sol",
+    "output_tokens": 108,
+    "provider": "OpenAI",
+    "provider_cost_status": "UNAVAILABLE_FROM_CURRENT_AUTH_SURFACE",
+    "provider_cost_usd": null,
+    "reasoning_effort": "medium"
+  },
+  "path": [
+    "user request",
+    "hosted model boundary",
+    "discord_identity tool call",
+    "isolated MCP facade",
+    "live Discord REST identity",
+    "tool result returned to hosted model",
+    "final model response"
+  ],
+  "privacy": {
+    "assistant_text_recorded": false,
+    "credential_value_read_by_research_harness": false,
+    "credential_value_recorded": false,
+    "discord_identity_values_recorded": false,
+    "private_dm_content_read": false,
+    "private_dm_content_sent_to_hosted_model": false,
+    "raw_tool_result_recorded": false
+  },
+  "run_id": "wd-discord-20260717T193605474Z-322363",
+  "schema_version": "1.0",
+  "status": "PASS",
+  "tool": {
+    "call_count": 1,
+    "calls": [
+      "discord_identity"
+    ],
+    "final_response_present": true,
+    "termination_reason": "final_response"
+  },
+  "write_boundary": {
+    "allow_send": false,
+    "discord_send_attempted": false,
+    "discord_send_committed": false,
+    "send_tool_exposed": false
+  }
+}

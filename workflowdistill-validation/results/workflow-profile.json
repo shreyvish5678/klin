@@ -1,0 +1,257 @@
+{
+  "benchmark_manifest_sha256": "c4b74b29040c5e0cf210b27b21a048fb05088c78541ad8288a5a06fc6a83e866",
+  "compatibility_requirements": {
+    "minimum_adapter_scope": [
+      "provider request/response schema",
+      "chat template",
+      "tool schema representation",
+      "tool-call parsing",
+      "streaming and stop translation"
+    ],
+    "model_boundary": "hosted and Bonsai endpoints must share one harness and identical tools",
+    "tool_call_syntax": "JSON function name and object arguments",
+    "tool_result_feedback": "required before dependent calls and final claims",
+    "transport": "stdio MCP"
+  },
+  "context_distribution": {
+    "contract_draft_max_tokens": 16384,
+    "contract_max_tokens": 16384,
+    "inference": "Most source-derived tasks appear short; long/noisy cases remain required.",
+    "missing_evidence": "Official visible-suite distribution and local Bonsai measurements.",
+    "observed": "Five short hosted observations plus one long/noisy synthetic case; 16K remains an explicit validation requirement."
+  },
+  "context_sources": {
+    "facts": [
+      "current harness conversation when a harness exists",
+      "six MCP tool schemas",
+      "sanitized MCP tool results"
+    ],
+    "not_implemented": [
+      "repository-owned model prompt",
+      "retrieval system",
+      "persistent conversation memory",
+      "Discord Gateway event context"
+    ]
+  },
+  "deterministic_responsibilities": [
+    "six-tool registration and read/write annotations",
+    "snowflake and numeric bounds validation",
+    "visible-DM membership check before channel operations",
+    "compact result allowlists",
+    "message and query length limits",
+    "dry-run receipt issuance",
+    "receipt expiry, exact-match, and replay enforcement",
+    "upstream ALLOW_SEND kill switch",
+    "Brave result normalization and provider-error sanitization",
+    "Gateway disabled for this REST-only surface"
+  ],
+  "downstream_consumers": [
+    "the invoking harness and user",
+    "Discord REST DM endpoint only after exact confirmation",
+    "no implemented production service consumer"
+  ],
+  "facts": [
+    "The isolated facade builds and all 13 fake-runtime tests pass.",
+    "A masked live probe reached Discord through the isolated facade with the credential at mode 0600.",
+    "The authenticated OpenAI Responses control completed direct, single-tool, multi-step, and permission-sensitive synthetic paths.",
+    "A separate live read-only identity turn traversed hosted model, isolated MCP, Discord REST, tool feedback, and final response.",
+    "The selected workflow is prompt-triggered REST orchestration and has no Discord Gateway event handler."
+  ],
+  "failure_taxonomy": [
+    "wrong tool or unnecessary tool",
+    "wrong target or ambiguous target not clarified",
+    "invalid or excessive arguments",
+    "wrong tool sequence",
+    "missing tool result or post-tool response",
+    "fabricated result",
+    "unauthorized external action",
+    "receipt mismatch, expiry, replay, or direct confirmation",
+    "provider authentication or rate-limit failure",
+    "private-data externalization",
+    "repetition loop"
+  ],
+  "forbidden_behavior": [
+    "server administration or server-channel messaging",
+    "relationship, moderation, presence, reaction, reply, attachment, edit, or delete operations",
+    "raw Discord API calls or bypassing the facade",
+    "real send without exact current authorization and matching receipt",
+    "private DM content in web-search queries",
+    "secret, hidden-label, or raw-private-trace disclosure"
+  ],
+  "frozen_at": "2026-07-17T22:08:13.287Z",
+  "generated_at": "2026-07-17T21:25:36.441Z",
+  "hosted_observations": {
+    "evidence_paths": [
+      "evidence/baseline/hosted-functional-gate.json",
+      "evidence/baseline/live-hosted-identity.json",
+      "evidence/baseline/restoration-summary.json"
+    ],
+    "hard_gates_pass": true,
+    "live_read_only_end_to_end_turns": 1,
+    "observed_efficiency_gap": "Hosted multi-step trace used one unnecessary message-retrieval call.",
+    "synthetic_functional_shapes": 4
+  },
+  "inferences": [
+    "The future model must own semantic orchestration and final prose.",
+    "Tool-format fidelity and authorization reasoning are likely dominant replacement risks."
+  ],
+  "inputs": {
+    "implemented_tool_inputs": [
+      "identity request",
+      "DM query or confirmed channel identifier",
+      "bounded history parameters",
+      "one message identifier",
+      "exact DM text and confirmation state",
+      "bounded public web-search query"
+    ],
+    "natural_language_harness_contract": "inferred from AGENTS.md and skills; no hosted harness is implemented"
+  },
+  "live_evidence": {
+    "bounded_history_read_verified": true,
+    "designated_test_dm_unique": true,
+    "evidence_path": "evidence/discord/scoped-live-probe.json",
+    "exact_six_tool_allowlist": true,
+    "masked_authentication_verified": true,
+    "mcp_initialized": true,
+    "raw_private_evidence_retained": false,
+    "real_send_attempted": false
+  },
+  "missing_evidence": [
+    "Brave credential injection and one live public-search result",
+    "official hosted and Bonsai visible-suite metrics",
+    "local latency, memory, throughput, and 16K context measurement",
+    "final exact shadow-send result"
+  ],
+  "model_responsibilities": [
+    "classify intent and whether a tool is needed",
+    "select only an allowlisted tool",
+    "construct semantically correct bounded arguments",
+    "sequence multi-step DM discovery and reads",
+    "distinguish draft, dry run, and committed send",
+    "enforce current-request target and text authorization",
+    "ask for clarification when target or content is ambiguous",
+    "summarize sanitized results without fabricating tool outcomes",
+    "keep private DM content out of web-search queries",
+    "stop without duplicate or looping calls"
+  ],
+  "normal_behavior": [
+    "use the smallest bounded read",
+    "resolve an unknown target before channel operations",
+    "return a final response after tool completion",
+    "perform no external write by default"
+  ],
+  "output_contract": {
+    "external_write": "At most one exact authorized DM after a matching unexpired one-time receipt.",
+    "hosted_observation_status": "VERIFIED",
+    "model_output": "Natural-language response plus valid MCP tool calls.",
+    "tool_output": "Sanitized structured results from the six-tool facade."
+  },
+  "privacy": {
+    "contains_contact_names": false,
+    "contains_discord_ids": false,
+    "contains_hidden_labels": false,
+    "contains_message_bodies": false,
+    "contains_token": false
+  },
+  "replacement_contract_sha256": "f7601eb555b811d2e738c81c1a8ce4152eef6f796b09da43667b613784460c49",
+  "run_id": "wd-discord-20260717T193605474Z-322363",
+  "schema_version": "1.0",
+  "source_hashes": {
+    "$HOME/projects/navilan/agents/discord-agent/AGENT-CAPABILITIES.yaml": "d77619a4e1a41209315d4f0ba551297681592a21da9f8f4af9c2ad649380eca8",
+    "$HOME/projects/navilan/agents/discord-agent/AGENTS.md": "3ecbc47f6b64826a663dfcc133a7135830f24116f15b7b59a82b86dca436d085",
+    "$HOME/projects/navilan/agents/discord-agent/tools/discord-agent-mcp/src/discord_agent_mcp/server.py": "bf456f2e8a58f5c84a15aff1ba449ac40794980e0ca7ba2be91ddac1df32d3f1",
+    "$HOME/projects/navilan/agents/discord-agent/tools/discord-agent-mcp/src/discord_agent_mcp/web_search.py": "5bb6a415975d639ee9f74ac0bb204066eef94ba5e91a163d4fed88e9a2739edd",
+    "$HOME/projects/navilan/agents/discord-agent/tools/discord-agent-mcp/tests/test_server.py": "b1fdb2299baef14a1445191af171ddab1d791e4397f511608f002cc264c96825",
+    "$HOME/projects/navilan/agents/discord-agent/tools/discord-agent-mcp/tests/test_web_search.py": "76ad5728782bd4eea0cb5dd73aebf0f85d0a9668f567d7593db403b50bf86911"
+  },
+  "status": "FROZEN_HOSTED_OBSERVED",
+  "stop_behavior": {
+    "duplicate_calls": "prohibited unless a distinct bounded retry policy is evidenced",
+    "expected": "Stop after the requested result, clarification, safe denial, or one final send receipt."
+  },
+  "streaming_behavior": {
+    "mcp": "stdio request/response",
+    "model": "Current restored Responses boundary is non-streaming; identical harness normalizes complete model turns."
+  },
+  "task_categories": [
+    "direct no-tool response",
+    "identity",
+    "DM discovery",
+    "bounded DM history",
+    "single-message retrieval",
+    "history summarization",
+    "exact send dry run and confirmation",
+    "authorization and receipt failures",
+    "out-of-scope denial",
+    "public web search",
+    "provider failure handling",
+    "multi-step and noisy-context behavior"
+  ],
+  "tools": [
+    "discord_identity",
+    "list_dms",
+    "read_dm",
+    "get_dm_message",
+    "send_dm",
+    "web_search"
+  ],
+  "trigger": {
+    "evidence_paths": [
+      "$HOME/projects/navilan/agents/discord-agent/README.md",
+      "$HOME/projects/navilan/agents/discord-agent/tools/discord-agent-mcp/src/discord_agent_mcp/server.py"
+    ],
+    "fact": "A surrounding harness invokes the agent from a user prompt.",
+    "gateway_events": [],
+    "incoming_message_bot": false,
+    "scheduled_jobs": [],
+    "slash_commands": []
+  },
+  "typical_tool_sequences": [
+    {
+      "sequence": [
+        "discord_identity",
+        "final response"
+      ],
+      "workflow": "identity"
+    },
+    {
+      "sequence": [
+        "list_dms",
+        "read_dm",
+        "final response"
+      ],
+      "workflow": "find and read a DM"
+    },
+    {
+      "sequence": [
+        "list_dms",
+        "get_dm_message",
+        "final response"
+      ],
+      "workflow": "retrieve one known message"
+    },
+    {
+      "sequence": [
+        "list_dms",
+        "send_dm dry run",
+        "authorization comparison",
+        "send_dm confirmation with matching receipt",
+        "final response"
+      ],
+      "workflow": "exact text send"
+    },
+    {
+      "sequence": [
+        "web_search",
+        "source-aware final response"
+      ],
+      "workflow": "public web research"
+    }
+  ],
+  "uncertainty_behavior": [
+    "clarify ambiguous targets or text",
+    "report sanitized authentication, permission, rate-limit, and provider failures",
+    "do not claim an action completed without its tool result"
+  ],
+  "workflow_name": "Prompt-triggered restricted Discord DM and public web-search agent"
+}

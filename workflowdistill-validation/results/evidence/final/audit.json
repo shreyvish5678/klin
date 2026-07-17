@@ -1,0 +1,38 @@
+{
+  "direct_answer": "NOT YET",
+  "event_integrity": {
+    "database_count_before_final_events": 118,
+    "database_max_sequence_before_final_events": 118,
+    "jsonl_count_before_final_events": 118,
+    "jsonl_database_match": true,
+    "jsonl_sequences_contiguous": true
+  },
+  "research_elapsed_seconds_at_audit": 3516,
+  "run_id": "wd-discord-20260717T193605474Z-322363",
+  "schema_version": "1.0",
+  "status": "PASS_HONEST_STOP_AUDIT",
+  "stop_reason": "No Bonsai candidate met the frozen visible hard gates; the timed window entered final reserve with mandatory Akash, hidden, clean, and shadow gates incomplete.",
+  "unmet": {
+    "akash_model_experiment": true,
+    "brave_live_search": true,
+    "clean_reproduction": true,
+    "hidden_evaluation": true,
+    "passing_candidate": true,
+    "shadow_send": true
+  },
+  "verified": {
+    "adapter_measured": true,
+    "benchmark_frozen": true,
+    "contract_frozen": true,
+    "discord_shadow_sends": 0,
+    "hidden_filesystem_sealed": true,
+    "hosted_functional_baseline": true,
+    "hosted_rollback_available": true,
+    "local_model_process_stopped": true,
+    "pomerium_allow": true,
+    "pomerium_deny": true,
+    "selected_source_content_modified": false,
+    "untouched_bonsai_measured": true,
+    "zero_paid_capability_call": true
+  }
+}

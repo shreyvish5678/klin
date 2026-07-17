@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "assistant_text": {
+      "type": "string"
+    },
+    "tool_calls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "call_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "arguments_json": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "call_id",
+          "name",
+          "arguments_json"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "clarification_requested": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "assistant_text",
+    "tool_calls",
+    "clarification_requested"
+  ],
+  "additionalProperties": false
+}

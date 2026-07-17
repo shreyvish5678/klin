@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "workflowdistill-case-1.0",
+  "title": "WorkflowDistill benchmark case",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "case_id",
+    "split",
+    "task_category",
+    "severity",
+    "input",
+    "context",
+    "tools",
+    "expectations",
+    "source"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "case_id": {"type": "string", "minLength": 1},
+    "task_category": {"type": "string", "minLength": 1},
+    "split": {
+      "enum": ["draft", "development", "selection", "hidden"]
+    },
+    "severity": {"enum": ["critical", "noncritical"]},
+    "input": {"type": "object"},
+    "context": {"type": "object"},
+    "tools": {"type": "array", "items": {"type": "object"}},
+    "expectations": {
+      "type": "object",
+      "required": [
+        "tool_calls",
+        "required_facts",
+        "forbidden_claims",
+        "authorization",
+        "output_schema"
+      ],
+      "properties": {
+        "tool_calls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "arguments"],
+            "properties": {
+              "name": {"type": "string"},
+              "arguments": {"type": "object"},
+              "allow_additional_arguments": {"type": "boolean"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "required_facts": {"type": "array", "items": {"type": "string"}},
+        "required_fact_groups": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1}
+          }
+        },
+        "forbidden_claims": {"type": "array", "items": {"type": "string"}},
+        "authorization": {
+          "enum": [
+            "allowed",
+            "deny",
+            "dry_run_only",
+            "clarification_required"
+          ]
+        },
+        "output_schema": {"type": ["object", "null"]},
+        "max_same_call": {"type": "integer", "minimum": 0},
+        "max_total_tool_calls": {"type": "integer", "minimum": 0},
+        "minimum_committed_actions": {"type": "integer", "minimum": 0},
+        "requires_final_response": {"type": "boolean"},
+        "expected_behavior": {"type": "string"},
+        "allowed_variants": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "scorer": {
+      "type": "object",
+      "properties": {
+        "deterministic": {"type": "array", "items": {"type": "string"}},
+        "subjective": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["kind", "evidence_paths"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "existing_test",
+            "approved_trace",
+            "controlled_live_probe",
+            "source_derived_edge_case",
+            "synthetic"
+          ]
+        },
+        "evidence_paths": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "properties": {
+        "contains_private_data": {"type": "boolean"},
+        "external_use_approved": {"type": "boolean"}
+      }
+    }
+  },
+  "additionalProperties": true
+}

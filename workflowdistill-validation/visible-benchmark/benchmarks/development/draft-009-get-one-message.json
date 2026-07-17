@@ -1,0 +1,127 @@
+{
+  "case_id": "draft-009-get-one-message",
+  "context": {
+    "contains_private_data": false,
+    "conversation_history": [],
+    "tool_fixtures": [
+      {
+        "result": [
+          {
+            "channel_id": "111",
+            "kind": "direct",
+            "last_message_id": "501",
+            "name": "Example Friend"
+          }
+        ],
+        "tool": "list_dms"
+      },
+      {
+        "result": [
+          {
+            "message": "The demo is Tuesday at 2 PM.",
+            "message_id": "501",
+            "person": "Example Friend",
+            "time": "2026-01-01T00:00:00Z",
+            "user_id": "901"
+          }
+        ],
+        "tool": "read_dm"
+      }
+    ]
+  },
+  "expectations": {
+    "allowed_variants": [],
+    "authorization": "allowed",
+    "expected_behavior": "Resolve the DM, retrieve exactly one message, and report it.",
+    "forbidden_claims": [],
+    "max_same_call": 1,
+    "max_total_tool_calls": 2,
+    "minimum_committed_actions": 0,
+    "output_schema": null,
+    "required_fact_groups": [],
+    "required_facts": [
+      "The demo is Tuesday at 2 PM."
+    ],
+    "requires_final_response": true,
+    "tool_calls": [
+      {
+        "allow_additional_arguments": true,
+        "arguments": {
+          "query": "Example Friend"
+        },
+        "name": "list_dms"
+      },
+      {
+        "allow_additional_arguments": true,
+        "arguments": {
+          "channel_id": "111",
+          "message_id": "501"
+        },
+        "name": "get_dm_message"
+      }
+    ]
+  },
+  "input": {
+    "user_message": "Get message 501 from the DM with Example Friend."
+  },
+  "privacy": {
+    "contains_private_data": false,
+    "external_use_approved": true,
+    "uses_synthetic_identifiers_only": true
+  },
+  "schema_version": "1.0",
+  "scorer": {
+    "deterministic": [
+      "tool selection",
+      "tool arguments",
+      "tool sequence",
+      "tool-result completion",
+      "authorization",
+      "required facts",
+      "forbidden claims",
+      "schema",
+      "loop and fabrication hard gates"
+    ],
+    "subjective": [
+      "usefulness",
+      "clarity",
+      "appropriate uncertainty"
+    ]
+  },
+  "severity": "noncritical",
+  "source": {
+    "benchmark_refinement": "Frozen after authenticated hosted functional traces; only split, external-use approval, and two observed lexical variants changed.",
+    "evidence_paths": [
+      "$HOME/projects/navilan/agents/discord-agent/tools/discord-agent-mcp/tests/test_server.py"
+    ],
+    "kind": "existing_test"
+  },
+  "split": "development",
+  "task_category": "single-message retrieval",
+  "tools": [
+    {
+      "name": "discord_identity",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    },
+    {
+      "name": "list_dms",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    },
+    {
+      "name": "read_dm",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    },
+    {
+      "name": "get_dm_message",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    },
+    {
+      "name": "send_dm",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    },
+    {
+      "name": "web_search",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    }
+  ]
+}

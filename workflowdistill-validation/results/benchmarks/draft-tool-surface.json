@@ -1,0 +1,203 @@
+{
+  "frozen_at": "2026-07-17T22:08:13.287Z",
+  "replacement_contract_sha256": "f7601eb555b811d2e738c81c1a8ce4152eef6f796b09da43667b613784460c49",
+  "schema_version": "1.0",
+  "source_paths": [
+    "$HOME/projects/navilan/agents/discord-agent/tools/discord-agent-mcp/src/discord_agent_mcp/server.py",
+    "$HOME/projects/navilan/agents/discord-agent/tools/discord-agent-mcp/src/discord_agent_mcp/web_search.py"
+  ],
+  "status": "FROZEN",
+  "tools": [
+    {
+      "arguments": {},
+      "description": "Return a sanitized identity for the configured Discord account.",
+      "name": "discord_identity",
+      "read_only": true,
+      "required": [],
+      "result": [
+        "user_id",
+        "username",
+        "display_name",
+        "bot"
+      ]
+    },
+    {
+      "arguments": {
+        "limit": {
+          "default": 25,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "query": {
+          "default": null,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "description": "List or search visible direct-message conversations, up to 100.",
+      "name": "list_dms",
+      "read_only": true,
+      "required": [],
+      "result": [
+        "channel_id",
+        "name",
+        "kind",
+        "last_message_id"
+      ]
+    },
+    {
+      "arguments": {
+        "after": {
+          "default": null,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "around": {
+          "default": null,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "before": {
+          "default": null,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "channel_id": {
+          "format": "discord_snowflake",
+          "type": "string"
+        },
+        "limit": {
+          "default": 20,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "constraints": [
+        "at most one pagination cursor",
+        "visible DM only"
+      ],
+      "description": "Read up to 100 compact messages from a verified DM channel. Use at most one pagination cursor.",
+      "name": "read_dm",
+      "read_only": true,
+      "required": [
+        "channel_id"
+      ],
+      "result": [
+        "message_id",
+        "person",
+        "user_id",
+        "message",
+        "time"
+      ]
+    },
+    {
+      "arguments": {
+        "channel_id": {
+          "format": "discord_snowflake",
+          "type": "string"
+        },
+        "message_id": {
+          "format": "discord_snowflake",
+          "type": "string"
+        }
+      },
+      "constraints": [
+        "visible DM only"
+      ],
+      "description": "Get one compact message from a verified DM channel.",
+      "name": "get_dm_message",
+      "read_only": true,
+      "required": [
+        "channel_id",
+        "message_id"
+      ],
+      "result": [
+        "message_id",
+        "person",
+        "user_id",
+        "message",
+        "time"
+      ]
+    },
+    {
+      "arguments": {
+        "channel_id": {
+          "format": "discord_snowflake",
+          "type": "string"
+        },
+        "confirm_send": {
+          "default": false,
+          "type": "boolean"
+        },
+        "confirmation_token": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "content": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "constraints": [
+        "visible DM only",
+        "dry run by default",
+        "exact current-request authorization required",
+        "matching unexpired one-time receipt required for commit"
+      ],
+      "description": "Dry-run or send exact text to a verified DM. Defaults to sent=false; a real send requires confirm_send=true plus the unexpired one-time confirmation_token from a matching dry run.",
+      "name": "send_dm",
+      "read_only": false,
+      "required": [
+        "channel_id",
+        "content"
+      ]
+    },
+    {
+      "arguments": {
+        "count": {
+          "default": 10,
+          "maximum": 20,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "country": {
+          "default": "US",
+          "type": "string"
+        },
+        "query": {
+          "maxLength": 400,
+          "maximum_words": 50,
+          "minLength": 1,
+          "type": "string"
+        },
+        "search_lang": {
+          "default": "en",
+          "type": "string"
+        }
+      },
+      "constraints": [
+        "public data only",
+        "never externalize private DM content"
+      ],
+      "description": "Search the public web and return normalized titles, snippets, and source URLs. This is read-only and requires a configured Brave Search credential.",
+      "name": "web_search",
+      "read_only": true,
+      "required": [
+        "query"
+      ]
+    }
+  ]
+}

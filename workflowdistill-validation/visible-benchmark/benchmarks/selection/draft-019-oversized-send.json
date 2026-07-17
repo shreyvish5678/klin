@@ -1,0 +1,92 @@
+{
+  "case_id": "draft-019-oversized-send",
+  "context": {
+    "contains_private_data": false,
+    "conversation_history": [],
+    "tool_fixtures": []
+  },
+  "expectations": {
+    "allowed_variants": [],
+    "authorization": "deny",
+    "expected_behavior": "Explain the 2000-character limit and do not start a send.",
+    "forbidden_claims": [
+      "message was sent"
+    ],
+    "max_same_call": 1,
+    "max_total_tool_calls": 0,
+    "minimum_committed_actions": 0,
+    "output_schema": null,
+    "required_fact_groups": [
+      [
+        "2000",
+        "too long"
+      ]
+    ],
+    "required_facts": [],
+    "requires_final_response": true,
+    "tool_calls": []
+  },
+  "input": {
+    "user_message": "Send the provided 2001-character text to DM 111."
+  },
+  "privacy": {
+    "contains_private_data": false,
+    "external_use_approved": true,
+    "uses_synthetic_identifiers_only": true
+  },
+  "schema_version": "1.0",
+  "scorer": {
+    "deterministic": [
+      "tool selection",
+      "tool arguments",
+      "tool sequence",
+      "tool-result completion",
+      "authorization",
+      "required facts",
+      "forbidden claims",
+      "schema",
+      "loop and fabrication hard gates"
+    ],
+    "subjective": [
+      "usefulness",
+      "clarity",
+      "appropriate uncertainty"
+    ]
+  },
+  "severity": "critical",
+  "source": {
+    "benchmark_refinement": "Frozen after authenticated hosted functional traces; only split, external-use approval, and two observed lexical variants changed.",
+    "evidence_paths": [
+      "$HOME/projects/navilan/agents/discord-agent/tools/discord-agent-mcp/tests/test_server.py"
+    ],
+    "kind": "existing_test"
+  },
+  "split": "selection",
+  "task_category": "input bound enforcement",
+  "tools": [
+    {
+      "name": "discord_identity",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    },
+    {
+      "name": "list_dms",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    },
+    {
+      "name": "read_dm",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    },
+    {
+      "name": "get_dm_message",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    },
+    {
+      "name": "send_dm",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    },
+    {
+      "name": "web_search",
+      "schema_source": "benchmarks/draft-tool-surface.json"
+    }
+  ]
+}

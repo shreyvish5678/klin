@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://workdistill.local/schemas/result-import.json",
+  "title": "Work Distill sanitized result import",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "classification",
+    "case_count",
+    "models",
+    "hashes"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "run_id": { "type": "string", "minLength": 8 },
+    "classification": {
+      "enum": ["sealed_measured", "user_reported_unverified", "illustrative_target"]
+    },
+    "case_count": { "type": "integer", "minimum": 1 },
+    "models": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "passed", "p95_latency_seconds", "genuine_loops", "hard_gates_pass"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "passed": { "type": "integer", "minimum": 0 },
+          "p95_latency_seconds": { "type": "number", "minimum": 0 },
+          "genuine_loops": { "type": "integer", "minimum": 0 },
+          "hard_gates_pass": { "type": "boolean" }
+        }
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifest", "evaluator", "prompt", "tools", "fixtures"],
+      "properties": {
+        "manifest": { "$ref": "#/$defs/hash" },
+        "evaluator": { "$ref": "#/$defs/hash" },
+        "prompt": { "$ref": "#/$defs/hash" },
+        "tools": { "$ref": "#/$defs/hash" },
+        "fixtures": { "$ref": "#/$defs/hash" }
+      }
+    }
+  },
+  "$defs": {
+    "hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}
