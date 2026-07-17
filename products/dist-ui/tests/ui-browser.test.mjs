@@ -127,7 +127,7 @@ test(
       screenHeight: 844,
     });
     await send("Page.reload", { ignoreCache: true });
-    await wait(700);
+    await waitForValue('document.querySelectorAll(".journey-card").length', 5, 15_000);
 
     assert.deepEqual(
       JSON.parse(await evaluate("JSON.stringify([innerWidth, document.documentElement.scrollWidth])")),
@@ -254,7 +254,7 @@ test(
     await waitForValue('document.querySelector(".inventory-agent-button").disabled', false);
 
     await send("Page.reload", { ignoreCache: true });
-    await wait(700);
+    await waitForValue('document.querySelectorAll(".journey-card").length', 5, 15_000);
     await evaluate('document.querySelectorAll(".quick-actions button")[1].click()');
     await evaluate('document.querySelectorAll(".mobile-view-switch button")[1].click()');
     await waitForValue(
