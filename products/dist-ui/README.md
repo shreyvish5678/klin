@@ -66,6 +66,8 @@ is displayed separately until its artifacts verify.
 
 ![Technical evidence and next-method queue](public/demo-technical.png)
 
+![Latest reported SFT and LoRA metrics](public/demo-reported-metrics.png)
+
 ## Validate and capture
 
 ```sh
@@ -80,6 +82,7 @@ local server at `127.0.0.1:5173` and writes:
 - `public/demo-overview.png`
 - `public/demo-results.png`
 - `public/demo-technical.png`
+- `public/demo-reported-metrics.png`
 - `public/work-distill-demo.mp4`
 
 ## Architecture and handoff

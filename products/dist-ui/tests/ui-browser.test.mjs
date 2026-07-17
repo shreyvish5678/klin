@@ -263,7 +263,7 @@ test(
     );
     assert.equal(
       await evaluate('document.querySelector(".recommendation-card strong").textContent.trim()'),
-      "Replacement decision: NOT YET",
+      "Prior sealed decision: NOT YET",
     );
     assert.equal(
       await evaluate('document.querySelectorAll(".branch-card.recommended").length'),
@@ -277,6 +277,18 @@ test(
     assert.equal(
       await evaluate('document.querySelector(".flow-detail-drawer .drawer-head strong").textContent.trim()'),
       "p42 LoRA candidate",
+    );
+    await evaluate('document.querySelector(".console-disclosure").click()');
+    await evaluate('document.querySelectorAll(".console-tabs button")[2].click()');
+    assert.match(
+      await evaluate('document.querySelector(".metrics-note span").textContent.trim()'),
+      /9\/9 · 20 S/,
+    );
+    assert.equal(
+      await evaluate(
+        'document.querySelector(".metric-comparison > div:nth-child(2) strong:last-child").textContent.trim()',
+      ),
+      "9 / 9",
     );
   },
 );

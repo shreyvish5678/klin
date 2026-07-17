@@ -155,7 +155,15 @@ await evaluateChecked(
   '(() => { const disclosure = document.querySelector(".console-disclosure"); if (!disclosure) return false; disclosure.click(); return true; })()',
   "Technical disclosure was not found",
 );
-await captureFor(10);
+await wait(300);
+await evaluateChecked(
+  '(() => { const tab = document.querySelectorAll(".console-tabs button")[2]; if (!tab) return false; tab.click(); return true; })()',
+  "Reported metrics tab was not found",
+);
+await wait(300);
+const reportedMetrics = await captureFrame();
+fs.copyFileSync(reportedMetrics, path.join(publicDir, "demo-reported-metrics.png"));
+await captureFor(9);
 
 socket.close();
 cleanup();
@@ -193,4 +201,5 @@ console.log(`Captured ${frameIndex} frames`);
 console.log(path.join(publicDir, "demo-overview.png"));
 console.log(path.join(publicDir, "demo-results.png"));
 console.log(path.join(publicDir, "demo-technical.png"));
+console.log(path.join(publicDir, "demo-reported-metrics.png"));
 console.log(path.join(publicDir, "work-distill-demo.mp4"));
